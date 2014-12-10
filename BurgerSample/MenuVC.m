@@ -14,7 +14,8 @@
 typedef enum {
     meat,
     toppings,
-    sides
+    sides,
+    placeOrder
 } MenuSection;
 
 
@@ -51,12 +52,12 @@ typedef enum {
     self.isOpeningDisplay = YES;
 
     
-    self.menuSections = [NSArray arrayWithObjects:@"MEAL", @"TOPPINGS", @"SIDES", nil];
-    self.subliminalMessages = @[@"Make it a combo meal!", @"You are very very hungry", @"Eat eat eat eat eat"];
+    self.menuSections = [NSArray arrayWithObjects:@"MEAL", @"TOPPINGS", @"SIDES", @"PLACE ORDER", nil];
+    self.subliminalMessages = @[@"Make it a combo meal!", @"You are very very hungry", @"Eat eat eat eat eat", @"Get in my belly!"];
     
-    self.colors = [[[NSArray alloc] initWithObjects: UIColorFromRGB(0x2162a6), UIColorFromRGB(0x57a515), UIColorFromRGB(0xd0661e), nil] autorelease];
+    self.colors = [[[NSArray alloc] initWithObjects: UIColorFromRGB(0x2162a6), UIColorFromRGB(0x57a515), UIColorFromRGB(0xd0661e), UIColorFromRGB(0x21A4A6), nil] autorelease];
     
-    self.menuImages = [[[NSArray alloc] initWithObjects: [UIImage imageNamed:@"burger"], [UIImage imageNamed:@"toppings"], [UIImage imageNamed:@"sides"], nil] autorelease];
+    self.menuImages = [[[NSArray alloc] initWithObjects: [UIImage imageNamed:@"burger"], [UIImage imageNamed:@"toppings"], [UIImage imageNamed:@"sides"], [UIImage imageNamed:@"eat-oclock"], nil] autorelease];
     
     
     // TODO: Can I fix this so each item is initialized in its setup func and not here? How best to add to the viewsDictionary?
@@ -68,16 +69,6 @@ typedef enum {
                              @"tableView":self.menuTableView};
 
     
-    UISwipeGestureRecognizer *leftSwipeGestureRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)] autorelease];
-    leftSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-
-    UISwipeGestureRecognizer *rightSwipeGestureRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)] autorelease];
-    rightSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    
-
-    [self.containerView addGestureRecognizer: rightSwipeGestureRecognizer];
-    [self.containerView addGestureRecognizer: leftSwipeGestureRecognizer];
-
     
 
     
@@ -189,6 +180,19 @@ typedef enum {
 -(void) setupContainerView {
     // Make container view
 //    self.containerView = [[[UIView alloc] init] autorelease];
+    
+    UISwipeGestureRecognizer *leftSwipeGestureRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)] autorelease];
+    leftSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    UISwipeGestureRecognizer *rightSwipeGestureRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)] autorelease];
+    rightSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    
+    [self.containerView addGestureRecognizer: rightSwipeGestureRecognizer];
+    [self.containerView addGestureRecognizer: leftSwipeGestureRecognizer];
+    
+
+    
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
     self.containerView.frame = CGRectMake(self.view.frame.size.width, 0, self.menuTableView.frame.size.width, self.menuTableView.frame.size.height);
     [self.view addSubview:self.containerView];
@@ -222,7 +226,7 @@ typedef enum {
     [self.view addConstraint:self.containerViewCenterXConstraint];
 
     
-    // Initialize three detail VCs
+    // Initialize four detail VCs
     self.mealChoiceVC = [[[MealChoiceVC alloc] init] autorelease];
     self.mealChoiceVC.view.backgroundColor = self.colors[0];
 
@@ -234,11 +238,15 @@ typedef enum {
     self.sidesVC.view.backgroundColor = self.colors[2];
     self.sidesVC.themeColor = self.colors[2];
 
+    self.finalOrderVC = [[[FinalOrderVC alloc] init] autorelease];
+    self.finalOrderVC.view.backgroundColor = self.colors[3];
+    
 
     // Add as child View Controllers
     [self addChildViewController: self.mealChoiceVC];
     [self addChildViewController: self.toppingsVC];
     [self addChildViewController: self.sidesVC];
+    [self addChildViewController:self.finalOrderVC];
     
     // Add three detail VCs to the containerview
     [self.containerView addSubview:self.mealChoiceVC.view];
@@ -247,10 +255,13 @@ typedef enum {
     self.toppingsVC.view.frame = self.containerView.bounds;
     [self.containerView addSubview:self.sidesVC.view];
     self.sidesVC.view.frame = self.containerView.bounds;
+    [self.containerView addSubview:self.finalOrderVC.view];
+    self.finalOrderVC.view.frame = self.containerView.bounds;
     
     [self.mealChoiceVC didMoveToParentViewController: self];
     [self.toppingsVC didMoveToParentViewController: self];
     [self.sidesVC didMoveToParentViewController: self];
+    [self.finalOrderVC didMoveToParentViewController: self];
 }
 
 
@@ -263,12 +274,12 @@ typedef enum {
 
 // MARK: TABLEVIEW METHODS
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.view.frame.size.height / 3;
+    return self.view.frame.size.height / 4;
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 
@@ -303,6 +314,7 @@ typedef enum {
 //        [self presentViewController:alert animated:true completion:nil];
 //        return;
     } else { // No alert necessary because user selected row 0 (meal choice)
+        self.menuTableView.userInteractionEnabled = NO;
         if (self.isOpeningDisplay) { // self.menusectionState is already set to meat = 0
             [self switchViews];
             [self slideInViews];
@@ -319,8 +331,10 @@ typedef enum {
                     self.menuSectionState = meat;
                 } else if (indexPath.row == 1) {
                     self.menuSectionState = toppings;
-                } else {
+                } else if (indexPath.row == 2) {
                     self.menuSectionState = sides;
+                } else {
+                    self.menuSectionState = placeOrder;
                 }
                 [self updateContainerView];
             }
@@ -374,6 +388,10 @@ typedef enum {
             [self.containerView addSubview:self.sidesVC.view];
             self.sidesVC.view.frame = self.containerView.bounds;
             break;
+        case placeOrder:
+            [self.containerView addSubview:self.finalOrderVC.view];
+            self.finalOrderVC.view.frame = self.containerView.bounds;
+            break;
     }
 }
 
@@ -393,6 +411,7 @@ typedef enum {
 -(void)slideViewsHalfOff {
     
     self.mealChoiceVC.singleTapGestureRecognizer.enabled = NO;
+    self.menuTableView.userInteractionEnabled = YES;
     self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width * .5;
     [self.view setNeedsUpdateConstraints];

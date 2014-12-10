@@ -26,7 +26,8 @@
         self.menuLabel = [[[UILabel alloc] init] autorelease];
         self.menuLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.menuLabel.textColor = [UIColor blackColor];
-        self.menuLabel.font = [UIFont boldSystemFontOfSize:30];
+        self.menuLabel.font = [UIFont boldSystemFontOfSize:25];
+        self.menuLabel.adjustsFontSizeToFitWidth = YES;
         self.menuLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.menuLabel];
 
@@ -68,7 +69,7 @@
                                                                      relatedBy: NSLayoutRelationEqual
                                                                         toItem: self.contentView
                                                                      attribute: NSLayoutAttributeWidth
-                                                                    multiplier: 0.50
+                                                                    multiplier: 0.45
                                                                       constant: 0]
          ];
         
@@ -88,7 +89,7 @@
                                                                      relatedBy: NSLayoutRelationEqual
                                                                         toItem: self.contentView
                                                                      attribute: NSLayoutAttributeHeight
-                                                                    multiplier: 0.6
+                                                                    multiplier: 0.5
                                                                       constant: 0]
          ];
         
@@ -104,9 +105,9 @@
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem: self.menuCellImage
                                                                      attribute: NSLayoutAttributeCenterX
                                                                      relatedBy: NSLayoutRelationEqual
-                                                                        toItem: self.contentView
+                                                                        toItem: self.menuLabel
                                                                      attribute: NSLayoutAttributeCenterX
-                                                                    multiplier: 0.5
+                                                                    multiplier: 1
                                                                       constant: 0]
          ];
         

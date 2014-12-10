@@ -6,6 +6,7 @@ When completed, a review of the meal choices is presented before placing the fin
 
 Features:
 - Written entirely programmatically (no storyboards or nibs)
+- NSNotificationCenter
 - Visual constraints
 - Container view with multiple View Controllers alive at one time
 - Four meal images drawn with UIBezier paths
