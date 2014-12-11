@@ -109,7 +109,6 @@
     cell.itemLabel.text = self.listOfSides[indexPath.row];
     cell.backgroundColor = self.view.backgroundColor;
     cell.itemImage.image = self.sidesImages[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }

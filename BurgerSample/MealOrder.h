@@ -21,13 +21,8 @@ typedef enum {
 
 
 @property (nonatomic, assign) MainMeal state;
-@property (assign, nonatomic) BOOL tomato;
-@property (assign, nonatomic) BOOL onion;
-@property (assign, nonatomic) BOOL lettuce;
-@property (assign, nonatomic) BOOL ketchup;
-@property (assign, nonatomic) BOOL mustard;
+@property (strong, nonatomic) NSMutableArray *chosenToppings;
 
-// make dictionary for all these properties rather than individual
 
 
 @end

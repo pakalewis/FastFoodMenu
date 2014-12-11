@@ -22,6 +22,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+
         // Section label
         self.menuLabel = [[[UILabel alloc] init] autorelease];
         self.menuLabel.translatesAutoresizingMaskIntoConstraints = NO;

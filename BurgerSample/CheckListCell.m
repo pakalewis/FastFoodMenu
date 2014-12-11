@@ -17,6 +17,8 @@
     if (self) {
         
         self.isChecked = NO;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+
         
         // Item label
         self.itemLabel = [[[UILabel alloc] init] autorelease];

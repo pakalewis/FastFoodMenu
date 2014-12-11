@@ -16,7 +16,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
+    
+    self.mealOrder = [[[MealOrder alloc] init] autorelease];
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mealChoiceUpdated:)
+                                                 name:@"NEW_MEAL_CHOICE"
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(toppingsUpdated:)
+                                                 name:@"NEW_TOPPINGS"
+                                               object:nil];
+}
+
+
+
+// update for the final mealOrder
+-(void) mealChoiceUpdated:(NSNotification*) notification {
+    NSLog(@"meal updated on finalorderVC");
+
+    int state = [[notification.userInfo objectForKey:@"meal"] intValue];
+    self.mealOrder.state = state;
+}
+
+
+// update for the toppings
+-(void) toppingsUpdated:(NSNotification*) notification {
+    self.mealOrder.chosenToppings = notification.object;
+    
+    NSLog(@"array: %@", self.mealOrder.chosenToppings);
 }
 
 

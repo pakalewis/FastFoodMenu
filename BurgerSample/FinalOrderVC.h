@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MealOrder.h"
+
 
 @interface FinalOrderVC : UIViewController
+
+@property (strong, nonatomic) MealOrder *mealOrder;
 
 @end

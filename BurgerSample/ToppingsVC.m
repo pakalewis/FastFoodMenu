@@ -12,10 +12,6 @@
 @interface ToppingsVC ()
 
 @property (strong, nonatomic) UILabel *chooseYourToppingsLabel;
-//@property (strong, nonatomic) NSDictionary *hamburgerToppings;
-//@property (strong, nonatomic) NSDictionary *hotdogToppings;
-//@property (strong, nonatomic) NSDictionary *pizzaToppings;
-//@property (strong, nonatomic) NSDictionary *tacoToppings;
 
 @property (strong, nonatomic) NSArray *hamburgerToppings;
 @property (strong, nonatomic) NSArray *hamburgerToppingsImages;
@@ -33,6 +29,8 @@
 @property (strong, nonatomic) NSArray *currentToppingsImages;
 
 
+@property (strong, nonatomic) NSMutableArray *chosenToppings;
+
 
 
 
@@ -45,9 +43,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-//    NSArray *values = [NSArray arrayWithObjects: @"tomato", @"lettuce", @"cheese", nil];
-//    NSArray *keys = [NSArray arrayWithObjects: [NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO], [NSNumber numberWithBool:NO], nil];
-//    self.hamburgerToppings = [[NSDictionary alloc] initWithObjects:values forKeys: keys];
+
     
     self.hamburgerToppings = @[@"Tomato", @"Lettuce", @"Cheese", @"Onions", @"Pickles", @"Mustard"];
     self.hamburgerToppingsImages = @[[UIImage imageNamed:@"tomato"], [UIImage imageNamed:@"lettuce"], [UIImage imageNamed:@"cheese"], [UIImage imageNamed:@"onion"], [UIImage imageNamed:@"pickles"], [UIImage imageNamed:@"mustard"]];
@@ -63,6 +59,8 @@
 
     self.currentToppings = self.hamburgerToppings;
     self.currentToppingsImages = self.hamburgerToppingsImages;
+    
+    self.chosenToppings = [[[NSMutableArray alloc] init] autorelease];
     
     
     // Make Toppings label
@@ -124,6 +122,8 @@
 
     
     [self.toppingsTableView reloadData];
+
+    [self.chosenToppings removeAllObjects];
 }
 
 
@@ -135,10 +135,11 @@
     if (cell == nil) {
         cell = [[CheckListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
     }
+    cell.isChecked = NO;
+
     cell.checkboxImage.image = [UIImage imageNamed:@"uncheckedBox"];
     cell.itemLabel.text = self.currentToppings[indexPath.row];
     cell.backgroundColor = self.view.backgroundColor;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.itemImage.image = self.currentToppingsImages[indexPath.row];
     
     return cell;
@@ -157,15 +158,22 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CheckListCell *currentCell = (CheckListCell*) [self.toppingsTableView cellForRowAtIndexPath:indexPath];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if (!currentCell.isChecked) {
         currentCell.checkboxImage.image = [UIImage imageNamed:@"checkedBox"];
+        
+        [self.chosenToppings addObject:self.currentToppings[indexPath.row]];
         currentCell.isChecked = YES;
     } else {
         currentCell.checkboxImage.image = [UIImage imageNamed:@"uncheckedBox"];
+        [self.chosenToppings removeObject:self.currentToppings[indexPath.row]];
         currentCell.isChecked = NO;
     }
+
+    
+    
+    NSNotification *newToppingsNotification = [[[NSNotification alloc] initWithName:@"NEW_TOPPINGS" object:self.chosenToppings userInfo:nil] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:newToppingsNotification];
 }
 
 

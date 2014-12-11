@@ -81,21 +81,8 @@ typedef enum {
     // start with these views off screen
     self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width;
-    
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mealChoiceUpdated:)
-                                                 name:@"NEW_MEAL_CHOICE"
-                                               object:nil];
 }
 
-// update for the final mealOrder
--(void) mealChoiceUpdated:(NSNotification*) notification {
-    
-    int check = [[notification.userInfo objectForKey:@"meal"] intValue];
-    self.mealOrder.state = check;
- }
 
 
 
@@ -294,7 +281,6 @@ typedef enum {
         cell.menuLabel.text = self.menuSections[indexPath.row];
         cell.menuCellImage.image = self.menuImages[indexPath.row];
         cell.subliminalMessageLabel.text = self.subliminalMessages[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
 }
@@ -304,9 +290,9 @@ typedef enum {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // User tries to proceed but has not picked a meal so present ALERT
-    if (indexPath.row != 0 && self.mealOrder.state == 0) {
+    if (indexPath.row != 0 && self.finalOrderVC.mealOrder.state == 0) {
 
-//        NSLog(@"nothing picked yet");
+        NSLog(@"nothing picked yet");
 //        UIAlertController *alert = [[[UIAlertController alloc] init] autorelease];
 //        alert = [UIAlertController alertControllerWithTitle:@"First choose the main course!" message:@"" preferredStyle:UIAlertControllerStyleAlert];
 //        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -360,7 +346,7 @@ typedef enum {
 
 - (IBAction)didPressMenuButton:(id)sender {
     
-    if (self.mealOrder.state == 0) {
+    if (self.finalOrderVC.mealOrder.state == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"You didn't select a meal!" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:okAction];
