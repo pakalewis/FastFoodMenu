@@ -124,6 +124,9 @@
     [self.toppingsTableView reloadData];
 
     [self.chosenToppings removeAllObjects];
+    
+    NSNotification *newToppingsNotification = [[[NSNotification alloc] initWithName:@"NEW_TOPPINGS" object:self.chosenToppings userInfo:nil] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:newToppingsNotification];
 }
 
 
