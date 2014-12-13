@@ -91,6 +91,7 @@
     [self setupConstraints];
    
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mealChoiceUpdated:) name:@"NEW_MEAL_CHOICE" object:nil];
 
 }

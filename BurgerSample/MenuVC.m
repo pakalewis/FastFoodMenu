@@ -81,6 +81,26 @@ typedef enum {
     // start with these views off screen
     self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width;
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeState:) name:@"CHANGE_MENU_STATE" object:nil];
+
+}
+
+-(void) changeState:(NSNotification*) notification {
+    
+    int changeToState = [[notification.userInfo objectForKey:@"state"] intValue];
+    NSLog(@"%D", changeToState);
+    if (changeToState == 0) {
+        self.menuSectionState = 0;
+    } else if (changeToState == 1) {
+        self.menuSectionState = 1;
+    } else {
+        self.menuSectionState = 2;
+    }
+    
+    [self updateContainerView];
 }
 
 

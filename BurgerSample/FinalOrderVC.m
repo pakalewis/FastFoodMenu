@@ -15,12 +15,12 @@
 @interface FinalOrderVC ()
 
 @property (strong, nonatomic) UILabel *reviewYourOrderLabel;
-@property (strong, nonatomic) UILabel *mealLabel1;
+@property (strong, nonatomic) UIButton *mealLabel1;
 @property (strong, nonatomic) UILabel *mealLabel2;
 @property (strong, nonatomic) UIView *mealDrawing;
-@property (strong, nonatomic) UILabel *toppingsLabel1;
+@property (strong, nonatomic) UIButton *toppingsLabel1;
 @property (strong, nonatomic) UILabel *toppingsLabel2;
-@property (strong, nonatomic) UILabel *sidesLabel1;
+@property (strong, nonatomic) UIButton *sidesLabel1;
 @property (strong, nonatomic) UILabel *sidesLabel2;
 
 
@@ -47,15 +47,16 @@
     [self.view addSubview:self.reviewYourOrderLabel];
     
     // Make meal labels
-    self.mealLabel1 = [[[UILabel alloc] init] autorelease];
+    self.mealLabel1 = [[[UIButton alloc] init] autorelease];
     self.mealLabel1.translatesAutoresizingMaskIntoConstraints = NO;
     self.mealLabel1.backgroundColor = [UIColor grayColor];
-    self.mealLabel1.font = [UIFont boldSystemFontOfSize:20];
-    self.mealLabel1.text = @"MEAL";
-    self.mealLabel1.textAlignment = NSTextAlignmentCenter;
-    self.mealLabel1.textColor = [UIColor blackColor];
+    [self.mealLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [self.mealLabel1 setTitle:@"MEAL" forState:UIControlStateNormal];
+    [self.mealLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.mealLabel1 addTarget:self action:@selector(didPressMealLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mealLabel1];
     
+
     // Load the drawings
     self.mealDrawing = [[[UIView alloc] init] autorelease];
     self.mealDrawing.translatesAutoresizingMaskIntoConstraints = NO;
@@ -75,13 +76,13 @@
 
     
     // Make toppings label
-    self.toppingsLabel1 = [[[UILabel alloc] init] autorelease];
+    self.toppingsLabel1 = [[[UIButton alloc] init] autorelease];
     self.toppingsLabel1.translatesAutoresizingMaskIntoConstraints = NO;
     self.toppingsLabel1.backgroundColor = [UIColor grayColor];
-    self.toppingsLabel1.font = [UIFont boldSystemFontOfSize:20];
-    self.toppingsLabel1.text = @"TOPPINGS";
-    self.toppingsLabel1.textAlignment = NSTextAlignmentCenter;
-    self.toppingsLabel1.textColor = [UIColor blackColor];
+    [self.toppingsLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [self.toppingsLabel1 setTitle:@"TOPPINGS" forState:UIControlStateNormal];
+    [self.toppingsLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.toppingsLabel1 addTarget:self action:@selector(didPressToppingsLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toppingsLabel1];
 
     self.toppingsLabel2 = [[[UILabel alloc] init] autorelease];
@@ -98,13 +99,13 @@
     [self.view addSubview:self.toppingsLabel2];
     
     // Make sides labels
-    self.sidesLabel1 = [[[UILabel alloc] init] autorelease];
+    self.sidesLabel1 = [[[UIButton alloc] init] autorelease];
     self.sidesLabel1.translatesAutoresizingMaskIntoConstraints = NO;
     self.sidesLabel1.backgroundColor = [UIColor grayColor];
-    self.sidesLabel1.font = [UIFont boldSystemFontOfSize:20];
-    self.sidesLabel1.text = @"SIDES";
-    self.sidesLabel1.textAlignment = NSTextAlignmentCenter;
-    self.sidesLabel1.textColor = [UIColor blackColor];
+    [self.sidesLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [self.sidesLabel1 setTitle:@"SIDES" forState:UIControlStateNormal];
+    [self.sidesLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.sidesLabel1 addTarget:self action:@selector(didPressSidesLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.sidesLabel1];
 
     self.sidesLabel2 = [[[UILabel alloc] init] autorelease];
@@ -130,7 +131,46 @@
                                              selector:@selector(toppingsUpdated:)
                                                  name:@"NEW_TOPPINGS"
                                                object:nil];
+
 }
+
+
+
+- (IBAction)didPressMealLabel:(id)sender {
+    NSLog(@"meal tapped");
+
+    NSDictionary *userInfo = [[[NSDictionary alloc] init] autorelease];
+    userInfo = @{@"state": @0};
+
+    NSNotification *switchToMealNotification = [[[NSNotification alloc] initWithName:@"CHANGE_MENU_STATE" object:nil userInfo:userInfo] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:switchToMealNotification];
+    
+}
+
+
+- (IBAction)didPressToppingsLabel:(id)sender {
+    NSLog(@"toppings tapped");
+    
+    NSDictionary *userInfo = [[[NSDictionary alloc] init] autorelease];
+    userInfo = @{@"state": @1};
+    
+    NSNotification *switchToToppingsNotification = [[[NSNotification alloc] initWithName:@"CHANGE_MENU_STATE" object:nil userInfo:userInfo] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:switchToToppingsNotification];
+    
+}
+
+
+- (IBAction)didPressSidesLabel:(id)sender {
+    NSLog(@"sides tapped");
+    
+    NSDictionary *userInfo = [[[NSDictionary alloc] init] autorelease];
+    userInfo = @{@"state": @2};
+    
+    NSNotification *switchToSidesNotification = [[[NSNotification alloc] initWithName:@"CHANGE_MENU_STATE" object:nil userInfo:userInfo] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:switchToSidesNotification];
+    
+}
+
 
 
 
