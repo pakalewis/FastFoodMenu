@@ -11,7 +11,6 @@
 		2C005D731A24649000B0C343 /* burger.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C005D721A24649000B0C343 /* burger.png */; };
 		2C005D751A246B8200B0C343 /* sides.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C005D741A246B8200B0C343 /* sides.png */; };
 		2C005D771A246CDC00B0C343 /* toppings.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C005D761A246CDC00B0C343 /* toppings.png */; };
-		2C005DC61A25454500B0C343 /* DrawMealChoices.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C005DC51A25454500B0C343 /* DrawMealChoices.m */; };
 		2C0BF9201A2D85E1002B3F65 /* UILabel+padding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */; };
 		2C707D571A39097700D655A6 /* FinalOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C707D561A39097700D655A6 /* FinalOrderVC.m */; };
 		2C707D5B1A39105600D655A6 /* eat-oclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C707D5A1A39105600D655A6 /* eat-oclock.png */; };
@@ -73,8 +72,6 @@
 		2C005D721A24649000B0C343 /* burger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burger.png; sourceTree = "<group>"; };
 		2C005D741A246B8200B0C343 /* sides.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sides.png; sourceTree = "<group>"; };
 		2C005D761A246CDC00B0C343 /* toppings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toppings.png; sourceTree = "<group>"; };
-		2C005DC41A25454400B0C343 /* DrawMealChoices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawMealChoices.h; sourceTree = "<group>"; };
-		2C005DC51A25454500B0C343 /* DrawMealChoices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawMealChoices.m; sourceTree = "<group>"; };
 		2C0BF91E1A2D85E1002B3F65 /* UILabel+padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+padding.h"; sourceTree = "<group>"; };
 		2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+padding.m"; sourceTree = "<group>"; };
 		2C707D551A39097700D655A6 /* FinalOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOrderVC.h; sourceTree = "<group>"; };
@@ -269,8 +266,6 @@
 				2CD316611A23F42B0066AA67 /* MenuCell.m */,
 				2CDCA0691A2E2CC700F8106C /* CheckListCell.h */,
 				2CDCA06A1A2E2CC700F8106C /* CheckListCell.m */,
-				2C005DC41A25454400B0C343 /* DrawMealChoices.h */,
-				2C005DC51A25454500B0C343 /* DrawMealChoices.m */,
 				2CC790511A3BD92F004D108A /* DrawBurger.h */,
 				2CC790521A3BD92F004D108A /* DrawBurger.m */,
 				2CC790541A3BDF33004D108A /* DrawHotDog.h */,
@@ -435,7 +430,6 @@
 				2CD316671A23FFA70066AA67 /* MealOrder.m in Sources */,
 				2C005D711A24535900B0C343 /* MealChoiceVC.m in Sources */,
 				2CDCA06B1A2E2CC700F8106C /* CheckListCell.m in Sources */,
-				2C005DC61A25454500B0C343 /* DrawMealChoices.m in Sources */,
 				2CD316311A23CFBA0066AA67 /* main.m in Sources */,
 				2CD316591A23D0300066AA67 /* MenuVC.m in Sources */,
 				2C0BF9201A2D85E1002B3F65 /* UILabel+padding.m in Sources */,

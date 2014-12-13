@@ -7,11 +7,15 @@
 //
 
 #import "MealChoiceVC.h"
+#import "DrawBurger.h"
+#import "DrawHotDog.h"
+#import "DrawTaco.h"
+#import "DrawPizza.h"
 
 @interface MealChoiceVC ()
 
 
-@property (strong, nonatomic) DrawMealChoices *drawMealChoices;
+@property (strong, nonatomic) UIView *drawMealChoices;
 @property (strong, nonatomic) UILabel *chooseYourMealLabel;
 @property (strong, nonatomic) UILabel *choiceLabel;
 
@@ -26,11 +30,13 @@
     [super viewDidLoad];
 
     // Load the drawings
-    self.drawMealChoices = [[[DrawMealChoices alloc] init] autorelease];
+    self.drawMealChoices = [[[UIView alloc] init] autorelease];
     self.drawMealChoices.translatesAutoresizingMaskIntoConstraints = NO;
-    self.drawMealChoices.backgroundColor = [UIColor clearColor];
+    self.drawMealChoices.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.drawMealChoices];
+    
 
+    
     // Make burger label
     self.chooseYourMealLabel = [[[UILabel alloc] init] autorelease];
     self.chooseYourMealLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -63,6 +69,34 @@
     
     [self setupConstraints];
 
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    float maxX = self.drawMealChoices.frame.size.width;
+    float maxY = self.drawMealChoices.frame.size.height;
+    
+    DrawBurger *burgerDrawing = [[[DrawBurger alloc] init]autorelease];
+    [self.drawMealChoices addSubview:burgerDrawing];
+    burgerDrawing.frame = CGRectMake(0, 0, maxX / 2, maxY / 2);
+    burgerDrawing.backgroundColor = [UIColor clearColor];
+    
+    DrawHotDog *hotDogDrawing = [[[DrawHotDog alloc] init]autorelease];
+    [self.drawMealChoices addSubview:hotDogDrawing];
+    hotDogDrawing.frame = CGRectMake(maxX / 2, 0, maxX / 2, maxY / 2);
+    hotDogDrawing.backgroundColor = [UIColor clearColor];
+    
+    DrawTaco *tacoDrawing = [[[DrawTaco alloc] init]autorelease];
+    [self.drawMealChoices addSubview:tacoDrawing];
+    tacoDrawing.frame = CGRectMake(0, maxY / 2, maxX / 2, maxY / 2);
+    tacoDrawing.backgroundColor = [UIColor clearColor];
+    
+    DrawPizza *pizzaDrawing = [[[DrawPizza alloc] init]autorelease];
+    [self.drawMealChoices addSubview:pizzaDrawing];
+    pizzaDrawing.frame = CGRectMake(maxX / 2, maxY / 2, maxX / 2, maxY / 2);
+    pizzaDrawing.backgroundColor = [UIColor clearColor];
+    
 }
 
 -(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
