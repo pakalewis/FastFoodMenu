@@ -28,7 +28,6 @@
 @property (strong, nonatomic) NSArray *currentToppings;
 @property (strong, nonatomic) NSArray *currentToppingsImages;
 
-
 @property (strong, nonatomic) NSMutableArray *chosenToppings;
 
 

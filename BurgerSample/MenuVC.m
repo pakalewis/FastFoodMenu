@@ -27,10 +27,12 @@ typedef enum {
 @property (strong, nonatomic) NSArray *menuImages;
 @property (strong, nonatomic) NSDictionary *viewsDictionary;
 @property (strong, nonatomic) UIButton *menuButton;
+@property (strong, nonatomic) UIButton *placeOrderButton;
 @property (strong, nonatomic) UITableView *menuTableView;
 
 @property (strong, nonatomic) NSLayoutConstraint *containerViewCenterXConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *menuButtonCenterXConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *menuButtonLeftConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *placeOrderButtonRightConstraint;
 
 
 -(void)handleSwipeGesture:(UISwipeGestureRecognizer *)swipeGestureRecognizer;
@@ -62,9 +64,11 @@ typedef enum {
     
     // TODO: Can I fix this so each item is initialized in its setup func and not here? How best to add to the viewsDictionary?
     self.menuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.placeOrderButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.menuTableView = [[[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain] autorelease];
     self.containerView = [[[UIView alloc] init] autorelease];
     self.viewsDictionary = @{@"menuButton":self.menuButton,
+                             @"placeOrderButton":self.placeOrderButton,
                              @"containerView":self.containerView,
                              @"tableView":self.menuTableView};
 
@@ -76,10 +80,11 @@ typedef enum {
     // Set up views
     [self setupTableView];
     [self setupContainerView];
-    [self setupMenuButton];
+    [self setupButtons];
     
     // start with these views off screen
-    self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
+    self.menuButtonLeftConstraint.constant = self.view.frame.size.width * 2;
+    self.placeOrderButtonRightConstraint.constant = self.view.frame.size.width * 2;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width;
     
     
@@ -108,32 +113,61 @@ typedef enum {
 
 // MARK: SETUP
 
--(void) setupMenuButton {
+-(void) setupButtons {
 //    self.menuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.menuButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.menuButton.backgroundColor = [UIColor clearColor];
     self.menuButton.layer.cornerRadius = 15;
-    [self.menuButton setTitle:@"BACK TO MENU" forState:UIControlStateNormal];
+    [self.menuButton setTitle:@"MENU" forState:UIControlStateNormal];
     [self.menuButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [self.menuButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.menuButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [self.menuButton.layer setBorderWidth:4];
     [self.menuButton addTarget:self action:@selector(didPressMenuButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: self.menuButton];
-
-    // Constraint is a property so I can get at the constant when animating
-    self.menuButtonCenterXConstraint = [NSLayoutConstraint constraintWithItem: self.menuButton
-                                                       attribute: NSLayoutAttributeCenterX
-                                                       relatedBy: NSLayoutRelationEqual
-                                                          toItem: self.view
-                                                       attribute: NSLayoutAttributeCenterX
-                                                      multiplier: 1
-                                                        constant: 0];
-    [self.view addConstraint:self.menuButtonCenterXConstraint];
-
     
+    self.placeOrderButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.placeOrderButton.backgroundColor = [UIColor clearColor];
+    self.placeOrderButton.layer.cornerRadius = 15;
+    [self.placeOrderButton setTitle:@"PLACE ORDER" forState:UIControlStateNormal];
+    [self.placeOrderButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [self.placeOrderButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.placeOrderButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.placeOrderButton.layer setBorderWidth:4];
+    [self.placeOrderButton addTarget:self action:@selector(didPressPlaceOrderButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview: self.placeOrderButton];
+    
+    // Constraint is a property so I can get at the constant when animating
+    NSLayoutConstraint *menuButtonLeftConstraint = [NSLayoutConstraint constraintWithItem: self.menuButton
+                                                                                attribute: NSLayoutAttributeLeft
+                                                                                relatedBy: NSLayoutRelationEqual
+                                                                                   toItem: self.view
+                                                                                attribute: NSLayoutAttributeLeft
+                                                                               multiplier: 1
+                                                                                 constant: 20];
+    
+    [self.view addConstraint:menuButtonLeftConstraint];
+    self.menuButtonLeftConstraint = menuButtonLeftConstraint;
+    
+    
+    // Constraint is a property so I can get at the constant when animating
+    NSLayoutConstraint *placeOrderButtonRightConstraint = [NSLayoutConstraint constraintWithItem: self.placeOrderButton
+                                                                                attribute: NSLayoutAttributeRight
+                                                                                relatedBy: NSLayoutRelationEqual
+                                                                                   toItem: self.view
+                                                                                attribute: NSLayoutAttributeRight
+                                                                               multiplier: 1
+                                                                                 constant: -20];
+    
+    [self.view addConstraint:placeOrderButtonRightConstraint];
+    self.placeOrderButtonRightConstraint = placeOrderButtonRightConstraint;
+    
+    
+    
+    
+    // Heighth and width
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:[menuButton(180)]"
+                               constraintsWithVisualFormat:@"H:[menuButton(80)]"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:self.viewsDictionary]];
@@ -145,10 +179,32 @@ typedef enum {
                                views:self.viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"H:[placeOrderButton(170)]"
+                               options:NSLayoutFormatDirectionLeadingToTrailing
+                               metrics:nil
+                               views:self.viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"V:[placeOrderButton(50)]"
+                               options:NSLayoutFormatDirectionLeadingToTrailing
+                               metrics:nil
+                               views:self.viewsDictionary]];
+    
+
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:[menuButton]-10-|"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:self.viewsDictionary]];
+    
+    [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"V:[placeOrderButton]-10-|"
+                               options:NSLayoutFormatDirectionLeadingToTrailing
+                               metrics:nil
+                               views:self.viewsDictionary]];
+    
 }
 
 
@@ -378,6 +434,21 @@ typedef enum {
 }
 
 
+- (IBAction)didPressPlaceOrderButton:(id)sender {
+    
+    if (self.finalOrderVC.mealOrder.state == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"You didn't select a meal!" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+        return;
+    }
+    
+    self.menuSectionState = placeOrder;
+    [self updateContainerView];
+}
+
+
 -(void)switchViews {
 
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -405,7 +476,8 @@ typedef enum {
 -(void)slideInViews {
     
     self.mealChoiceVC.singleTapGestureRecognizer.enabled = YES;
-    self.menuButtonCenterXConstraint.constant = 0;
+    self.menuButtonLeftConstraint.constant = 20;
+    self.placeOrderButtonRightConstraint.constant = -20;
     self.containerViewCenterXConstraint.constant = 0;
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:0.7 animations:^{
@@ -418,7 +490,8 @@ typedef enum {
     
     self.mealChoiceVC.singleTapGestureRecognizer.enabled = NO;
     self.menuTableView.userInteractionEnabled = YES;
-    self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
+    self.menuButtonLeftConstraint.constant = self.view.frame.size.width;
+    self.placeOrderButtonRightConstraint.constant = self.view.frame.size.width;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width * .5;
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:0.7 animations:^{
@@ -429,7 +502,8 @@ typedef enum {
 
 -(void)updateContainerView {
     
-    self.menuButtonCenterXConstraint.constant = self.view.frame.size.width;
+    self.menuButtonLeftConstraint.constant = self.view.frame.size.width;
+    self.placeOrderButtonRightConstraint.constant = self.view.frame.size.width;
     self.containerViewCenterXConstraint.constant = self.view.frame.size.width;
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:0.7 animations:^{

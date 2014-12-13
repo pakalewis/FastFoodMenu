@@ -113,6 +113,7 @@
     self.sidesLabel2.backgroundColor = [UIColor grayColor];
     self.sidesLabel2.font = [UIFont boldSystemFontOfSize:15];
     self.sidesLabel2.textColor = [UIColor blackColor];
+    self.sidesLabel2.numberOfLines = 0;
     self.sidesLabel2.text = @"  Nothing selected yet";
     self.sidesLabel2.layer.borderColor = [[UIColor blackColor] CGColor];
     self.sidesLabel2.layer.borderWidth = 1;
@@ -131,7 +132,12 @@
                                              selector:@selector(toppingsUpdated:)
                                                  name:@"NEW_TOPPINGS"
                                                object:nil];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sidesUpdated:)
+                                                 name:@"NEW_SIDES"
+                                               object:nil];
+    
 }
 
 
@@ -247,6 +253,31 @@
         }
         
         self.toppingsLabel2.text = toppingsString;
+    }
+}
+
+
+
+
+
+// update for the sides
+-(void) sidesUpdated:(NSNotification*) notification {
+    
+    self.mealOrder.chosenSides = notification.object;
+    
+    if (self.mealOrder.chosenSides.firstObject == nil) {
+        self.sidesLabel2.text = @"  Nothing selected yet";
+        return;
+    } else {
+        
+        NSString *sidesString = [[[NSString alloc] init] autorelease];
+        for (NSString *side in self.mealOrder.chosenSides) {
+            sidesString = [sidesString stringByAppendingString:@"\n   - "];
+            sidesString = [sidesString stringByAppendingString:side];
+            sidesString = [sidesString stringByAppendingString:@"\n"];
+        }
+        
+        self.sidesLabel2.text = sidesString;
     }
 }
 

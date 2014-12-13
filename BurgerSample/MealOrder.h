@@ -22,6 +22,7 @@ typedef enum {
 
 @property (nonatomic, assign) MainMeal state;
 @property (strong, nonatomic) NSMutableArray *chosenToppings;
+@property (strong, nonatomic) NSMutableArray *chosenSides;
 
 
 

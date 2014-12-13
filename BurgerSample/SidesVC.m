@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) UILabel *chooseYourSidesLabel;
 
+@property (strong, nonatomic) NSMutableArray *chosenSides;
+
 
 @end
 
@@ -29,7 +31,7 @@
     self.sidesImages = @[[UIImage imageNamed:@"fries"], [UIImage imageNamed:@"onionRings"], [UIImage imageNamed:@"nuggets"], [UIImage imageNamed:@"milkshake"], [UIImage imageNamed:@"drinks"]];
 
     
-    // Make Toppings label
+    // Make Sides label
     self.chooseYourSidesLabel = [[[UILabel alloc] init] autorelease];
     self.chooseYourSidesLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.chooseYourSidesLabel.text = @"Choose your sides";
@@ -55,6 +57,7 @@
 
     [self setupConstraints];
 
+    self.chosenSides = [[[NSMutableArray alloc] init] autorelease];
 }
 
 
@@ -126,14 +129,21 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     CheckListCell *currentCell = (CheckListCell*) [self.sidesTableView cellForRowAtIndexPath:indexPath];
     if (!currentCell.isChecked) {
         currentCell.checkboxImage.image = [UIImage imageNamed:@"checkedBox"];
+        [self.chosenSides addObject:self.listOfSides[indexPath.row]];
         currentCell.isChecked = YES;
     } else {
         currentCell.checkboxImage.image = [UIImage imageNamed:@"uncheckedBox"];
+        [self.chosenSides removeObject:self.listOfSides[indexPath.row]];
         currentCell.isChecked = NO;
     }
+
+    
+    NSNotification *newSidesNotification = [[[NSNotification alloc] initWithName:@"NEW_SIDES" object:self.chosenSides userInfo:nil] autorelease];
+    [[NSNotificationCenter defaultCenter] postNotification:newSidesNotification];
 }
 
 
