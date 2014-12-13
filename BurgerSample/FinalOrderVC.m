@@ -7,12 +7,17 @@
 //
 
 #import "FinalOrderVC.h"
+#import "DrawBurger.h"
+#import "DrawHotDog.h"
+#import "DrawTaco.h"
+#import "DrawPizza.h"
 
 @interface FinalOrderVC ()
 
 @property (strong, nonatomic) UILabel *reviewYourOrderLabel;
 @property (strong, nonatomic) UILabel *mealLabel1;
 @property (strong, nonatomic) UILabel *mealLabel2;
+@property (strong, nonatomic) UIView *mealDrawing;
 @property (strong, nonatomic) UILabel *toppingsLabel1;
 @property (strong, nonatomic) UILabel *toppingsLabel2;
 @property (strong, nonatomic) UILabel *sidesLabel1;
@@ -32,7 +37,7 @@
     self.reviewYourOrderLabel = [[[UILabel alloc] init] autorelease];
     self.reviewYourOrderLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.reviewYourOrderLabel.text = @"Review your order";
-    self.reviewYourOrderLabel.backgroundColor = [UIColor grayColor];
+    self.reviewYourOrderLabel.backgroundColor = [UIColor clearColor];
     self.reviewYourOrderLabel.font = [UIFont boldSystemFontOfSize:20];
     self.reviewYourOrderLabel.textColor = [UIColor blackColor];
     self.reviewYourOrderLabel.layer.cornerRadius = 15;
@@ -51,6 +56,12 @@
     self.mealLabel1.textColor = [UIColor blackColor];
     [self.view addSubview:self.mealLabel1];
     
+    // Load the drawings
+    self.mealDrawing = [[[UIView alloc] init] autorelease];
+    self.mealDrawing.translatesAutoresizingMaskIntoConstraints = NO;
+    self.mealDrawing.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:self.mealDrawing];
+
     self.mealLabel2 = [[[UILabel alloc] init] autorelease];
     self.mealLabel2.translatesAutoresizingMaskIntoConstraints = NO;
     self.mealLabel2.backgroundColor = [UIColor grayColor];
@@ -61,6 +72,7 @@
     self.mealLabel2.layer.borderColor = [[UIColor blackColor] CGColor];
     self.mealLabel2.layer.borderWidth = 1;
     [self.view addSubview:self.mealLabel2];
+
     
     // Make toppings label
     self.toppingsLabel1 = [[[UILabel alloc] init] autorelease];
@@ -129,18 +141,46 @@
     int state = [[notification.userInfo objectForKey:@"meal"] intValue];
     self.mealOrder.state = state;
     
+    // tell the current mealDrawing subview to remove itself
+    [self.mealDrawing.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    // switch the mealOrder state and the mealDrawing view
     switch (self.mealOrder.state) {
         case hamburger:
             self.mealLabel2.text = @"Hamburger!";
+            
+            DrawBurger *burgerDrawing = [[[DrawBurger alloc] init] autorelease];
+            [self.mealDrawing addSubview:burgerDrawing];
+            burgerDrawing.frame = self.mealDrawing.bounds;
+            burgerDrawing.backgroundColor = [UIColor clearColor];
+            
             break;
         case hotdog:
             self.mealLabel2.text = @"Hot dog!";
+
+            DrawHotDog *hotDogDrawing = [[[DrawHotDog alloc] init] autorelease];
+            [self.mealDrawing addSubview:hotDogDrawing];
+            hotDogDrawing.frame = self.mealDrawing.bounds;
+            hotDogDrawing.backgroundColor = [UIColor clearColor];
+            
             break;
         case taco:
             self.mealLabel2.text = @"Taco!";
+            
+            DrawTaco *tacoDrawing = [[[DrawTaco alloc] init] autorelease];
+            [self.mealDrawing addSubview:tacoDrawing];
+            tacoDrawing.frame = self.mealDrawing.bounds;
+            tacoDrawing.backgroundColor = [UIColor clearColor];
+            
             break;
         case pizza:
             self.mealLabel2.text = @"Pizza!";
+            
+            DrawPizza *pizzaDrawing = [[[DrawPizza alloc] init] autorelease];
+            [self.mealDrawing addSubview:pizzaDrawing];
+            pizzaDrawing.frame = self.mealDrawing.bounds;
+            pizzaDrawing.backgroundColor = [UIColor clearColor];
+            
             break;
         case none:
             break;
@@ -158,12 +198,12 @@
         self.toppingsLabel2.text = @"  Nothing selected yet";
         return;
     } else {
-        NSString *toppingsString = [[[NSString alloc] init] autorelease];
-        NSLog(@"   - %@", toppingsString);
         
+        NSString *toppingsString = [[[NSString alloc] init] autorelease];
         for (NSString *topping in self.mealOrder.chosenToppings) {
             toppingsString = [toppingsString stringByAppendingString:@"\n   - "];
             toppingsString = [toppingsString stringByAppendingString:topping];
+            toppingsString = [toppingsString stringByAppendingString:@"\n"];
         }
         
         self.toppingsLabel2.text = toppingsString;
@@ -177,10 +217,11 @@
 -(void) setupConstraints {
     NSDictionary *viewsDictionary = @{@"reviewYourOrderLabel": self.reviewYourOrderLabel,
                                       @"mealLabel1": self.mealLabel1,
-                                      @"toppingsLabel1": self.toppingsLabel1,
-                                      @"sidesLabel1": self.sidesLabel1,
+                                      @"mealDrawing": self.mealDrawing,
                                       @"mealLabel2": self.mealLabel2,
+                                      @"toppingsLabel1": self.toppingsLabel1,
                                       @"toppingsLabel2": self.toppingsLabel2,
+                                      @"sidesLabel1": self.sidesLabel1,
                                       @"sidesLabel2": self.sidesLabel2};
     
     
@@ -224,7 +265,35 @@
                                                            constant: 0]
      ];
     
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealLabel2
+                                                          attribute: NSLayoutAttributeCenterX
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.mealDrawing
+                                                          attribute: NSLayoutAttributeCenterX
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    // 1 to 1 ratio for mealDrawing
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealDrawing
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.mealDrawing
+                                                          attribute: NSLayoutAttributeHeight
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealLabel1
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.mealDrawing
+                                                          attribute: NSLayoutAttributeWidth
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealDrawing
                                                           attribute: NSLayoutAttributeWidth
                                                           relatedBy: NSLayoutRelationEqual
                                                              toItem: self.mealLabel2
@@ -307,6 +376,33 @@
                                                            constant: 0]
      ];
     
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealLabel1
+                                                          attribute: NSLayoutAttributeTop
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.toppingsLabel1
+                                                          attribute: NSLayoutAttributeTop
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealDrawing
+                                                          attribute: NSLayoutAttributeTop
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.toppingsLabel2
+                                                          attribute: NSLayoutAttributeTop
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.mealLabel2
+                                                          attribute: NSLayoutAttributeBottom
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.toppingsLabel2
+                                                          attribute: NSLayoutAttributeBottom
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-10-[mealLabel1]-10-[toppingsLabel1]-10-|"
                                options:NSLayoutFormatDirectionLeadingToTrailing
@@ -320,16 +416,18 @@
                                views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:[reviewYourOrderLabel]-20-[mealLabel1]-5-[mealLabel2]-10-[sidesLabel1]-5-[sidesLabel2]-70-|"
+                               constraintsWithVisualFormat:@"V:[mealDrawing]-5-[mealLabel2]"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:viewsDictionary]];
+    
     
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:[reviewYourOrderLabel]-20-[toppingsLabel1]-5-[toppingsLabel2]-10-[sidesLabel1]-5-[sidesLabel2]-70-|"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:viewsDictionary]];
+    
     
 }
 
