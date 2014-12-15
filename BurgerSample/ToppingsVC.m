@@ -69,12 +69,21 @@
     self.chooseYourToppingsLabel.backgroundColor = [UIColor clearColor];
     self.chooseYourToppingsLabel.font = [UIFont boldSystemFontOfSize:20];
     self.chooseYourToppingsLabel.textColor = [UIColor blackColor];
-    self.chooseYourToppingsLabel.layer.cornerRadius = 15;
-    self.chooseYourToppingsLabel.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.chooseYourToppingsLabel.layer.borderWidth = 2;
     self.chooseYourToppingsLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.chooseYourToppingsLabel];
     
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderWidth = 2;
+    topBorder.frame = CGRectMake(0, 0, self.view.frame.size.width, 2);
+    [topBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourToppingsLabel.layer addSublayer:topBorder];
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderWidth = 2;
+    bottomBorder.frame = CGRectMake(0, 49, self.view.frame.size.width, 2);
+    [bottomBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourToppingsLabel.layer addSublayer:bottomBorder];
+
     
     // make tableview
     self.toppingsTableView = [[[UITableView alloc] init] autorelease];
@@ -203,6 +212,15 @@
                                                           relatedBy: NSLayoutRelationEqual
                                                              toItem: self.view
                                                           attribute: NSLayoutAttributeCenterX
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.chooseYourToppingsLabel
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.view
+                                                          attribute: NSLayoutAttributeWidth
                                                          multiplier: 1
                                                            constant: 0]
      ];

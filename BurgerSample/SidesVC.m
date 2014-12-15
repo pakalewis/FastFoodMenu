@@ -38,11 +38,20 @@
     self.chooseYourSidesLabel.backgroundColor = [UIColor clearColor];
     self.chooseYourSidesLabel.font = [UIFont boldSystemFontOfSize:20];
     self.chooseYourSidesLabel.textColor = [UIColor blackColor];
-    self.chooseYourSidesLabel.layer.cornerRadius = 15;
-    self.chooseYourSidesLabel.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.chooseYourSidesLabel.layer.borderWidth = 2;
     self.chooseYourSidesLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.chooseYourSidesLabel];
+
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderWidth = 2;
+    topBorder.frame = CGRectMake(0, 0, self.view.frame.size.width, 2);
+    [topBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourSidesLabel.layer addSublayer:topBorder];
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderWidth = 2;
+    bottomBorder.frame = CGRectMake(0, 49, self.view.frame.size.width, 2);
+    [bottomBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourSidesLabel.layer addSublayer:bottomBorder];
 
     
     // make tableview
@@ -83,6 +92,15 @@
                                                           relatedBy: NSLayoutRelationEqual
                                                              toItem: self.view
                                                           attribute: NSLayoutAttributeCenterX
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.chooseYourSidesLabel
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.view
+                                                          attribute: NSLayoutAttributeWidth
                                                          multiplier: 1
                                                            constant: 0]
      ];

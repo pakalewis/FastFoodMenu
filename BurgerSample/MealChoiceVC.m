@@ -32,7 +32,7 @@
     // Load the drawings
     self.drawMealChoices = [[[UIView alloc] init] autorelease];
     self.drawMealChoices.translatesAutoresizingMaskIntoConstraints = NO;
-    self.drawMealChoices.backgroundColor = [UIColor grayColor];
+    self.drawMealChoices.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.drawMealChoices];
     
 
@@ -44,11 +44,21 @@
     self.chooseYourMealLabel.backgroundColor = [UIColor clearColor];
     self.chooseYourMealLabel.font = [UIFont boldSystemFontOfSize:20];
     self.chooseYourMealLabel.textColor = [UIColor blackColor];
-    self.chooseYourMealLabel.layer.cornerRadius = 15;
-    self.chooseYourMealLabel.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.chooseYourMealLabel.layer.borderWidth = 2;
     self.chooseYourMealLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.chooseYourMealLabel];
+    
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderWidth = 2;
+    topBorder.frame = CGRectMake(0, 0, self.view.frame.size.width, 2);
+    [topBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourMealLabel.layer addSublayer:topBorder];
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderWidth = 2;
+    bottomBorder.frame = CGRectMake(0, 49, self.view.frame.size.width, 2);
+    [bottomBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.chooseYourMealLabel.layer addSublayer:bottomBorder];
+
     
     // Make label
     self.choiceLabel = [[[UILabel alloc] init] autorelease];
@@ -138,19 +148,13 @@
     
     // Choose your meal label
     [self.view addConstraints:[NSLayoutConstraint
-                              constraintsWithVisualFormat:@"H:[chooseYourMealLabel(200)]"
-                              options:0
-                              metrics:nil
-                              views:viewsDictionary]];
-    
-    [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:[chooseYourMealLabel(50)]"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:viewsDictionary]];
     
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|-40-[chooseYourMealLabel]"
+                               constraintsWithVisualFormat:@"V:|-30-[chooseYourMealLabel]"
                                options:NSLayoutFormatDirectionLeadingToTrailing
                                metrics:nil
                                views:viewsDictionary]];
@@ -164,7 +168,16 @@
                                                          multiplier: 1
                                                            constant: 0]
      ];
-
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.chooseYourMealLabel
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.view
+                                                          attribute: NSLayoutAttributeWidth
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
     
     
     

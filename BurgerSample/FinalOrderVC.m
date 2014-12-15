@@ -40,19 +40,32 @@
     self.reviewYourOrderLabel.backgroundColor = [UIColor clearColor];
     self.reviewYourOrderLabel.font = [UIFont boldSystemFontOfSize:20];
     self.reviewYourOrderLabel.textColor = [UIColor blackColor];
-    self.reviewYourOrderLabel.layer.cornerRadius = 15;
-    self.reviewYourOrderLabel.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.reviewYourOrderLabel.layer.borderWidth = 2;
     self.reviewYourOrderLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.reviewYourOrderLabel];
+    
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderWidth = 2;
+    topBorder.frame = CGRectMake(0, 0, self.view.frame.size.width, 2);
+    [topBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.reviewYourOrderLabel.layer addSublayer:topBorder];
+
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderWidth = 2;
+    bottomBorder.frame = CGRectMake(0, 49, self.view.frame.size.width, 2);
+    [bottomBorder setBorderColor:[UIColor blackColor].CGColor];
+    [self.reviewYourOrderLabel.layer addSublayer:bottomBorder];
+
     
     // Make meal labels
     self.mealLabel1 = [[[UIButton alloc] init] autorelease];
     self.mealLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mealLabel1.backgroundColor = [UIColor grayColor];
+    self.mealLabel1.backgroundColor = [UIColor clearColor];
     [self.mealLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [self.mealLabel1 setTitle:@"MEAL" forState:UIControlStateNormal];
     [self.mealLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.mealLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.mealLabel1.layer setBorderWidth:2];
+    self.mealLabel1.layer.cornerRadius = 15;
     [self.mealLabel1 addTarget:self action:@selector(didPressMealLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mealLabel1];
     
@@ -60,12 +73,14 @@
     // Load the drawings
     self.mealDrawing = [[[UIView alloc] init] autorelease];
     self.mealDrawing.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mealDrawing.backgroundColor = [UIColor grayColor];
+    self.mealDrawing.backgroundColor = [UIColor clearColor];
+    self.mealDrawing.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.mealDrawing.layer.borderWidth = 1;
     [self.view addSubview:self.mealDrawing];
 
     self.mealLabel2 = [[[UILabel alloc] init] autorelease];
     self.mealLabel2.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mealLabel2.backgroundColor = [UIColor grayColor];
+    self.mealLabel2.backgroundColor = [UIColor clearColor];
     self.mealLabel2.font = [UIFont boldSystemFontOfSize:15];
     self.mealLabel2.textAlignment = NSTextAlignmentCenter;
 //    self.mealLabel2.numberOfLines = 0;
@@ -78,16 +93,19 @@
     // Make toppings label
     self.toppingsLabel1 = [[[UIButton alloc] init] autorelease];
     self.toppingsLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.toppingsLabel1.backgroundColor = [UIColor grayColor];
+    self.toppingsLabel1.backgroundColor = [UIColor clearColor];
     [self.toppingsLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [self.toppingsLabel1 setTitle:@"TOPPINGS" forState:UIControlStateNormal];
     [self.toppingsLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.toppingsLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.toppingsLabel1.layer setBorderWidth:2];
+    self.toppingsLabel1.layer.cornerRadius = 15;
     [self.toppingsLabel1 addTarget:self action:@selector(didPressToppingsLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toppingsLabel1];
 
     self.toppingsLabel2 = [[[UILabel alloc] init] autorelease];
     self.toppingsLabel2.translatesAutoresizingMaskIntoConstraints = NO;
-    self.toppingsLabel2.backgroundColor = [UIColor grayColor];
+    self.toppingsLabel2.backgroundColor = [UIColor clearColor];
     self.toppingsLabel2.font = [UIFont boldSystemFontOfSize:15];
     self.toppingsLabel2.textColor = [UIColor blackColor];
     self.toppingsLabel2.numberOfLines = 0;
@@ -101,16 +119,19 @@
     // Make sides labels
     self.sidesLabel1 = [[[UIButton alloc] init] autorelease];
     self.sidesLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.sidesLabel1.backgroundColor = [UIColor grayColor];
+    self.sidesLabel1.backgroundColor = [UIColor clearColor];
     [self.sidesLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [self.sidesLabel1 setTitle:@"SIDES" forState:UIControlStateNormal];
     [self.sidesLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.sidesLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [self.sidesLabel1.layer setBorderWidth:2];
+    self.sidesLabel1.layer.cornerRadius = 15;
     [self.sidesLabel1 addTarget:self action:@selector(didPressSidesLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.sidesLabel1];
 
     self.sidesLabel2 = [[[UILabel alloc] init] autorelease];
     self.sidesLabel2.translatesAutoresizingMaskIntoConstraints = NO;
-    self.sidesLabel2.backgroundColor = [UIColor grayColor];
+    self.sidesLabel2.backgroundColor = [UIColor clearColor];
     self.sidesLabel2.font = [UIFont boldSystemFontOfSize:15];
     self.sidesLabel2.textColor = [UIColor blackColor];
     self.sidesLabel2.numberOfLines = 0;
@@ -308,6 +329,16 @@
                                metrics:nil
                                views:viewsDictionary]];
     
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.reviewYourOrderLabel
+                                                          attribute: NSLayoutAttributeWidth
+                                                          relatedBy: NSLayoutRelationEqual
+                                                             toItem: self.view
+                                                          attribute: NSLayoutAttributeWidth
+                                                         multiplier: 1
+                                                           constant: 0]
+     ];
+    
+
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.reviewYourOrderLabel
                                                           attribute: NSLayoutAttributeCenterX

@@ -75,7 +75,7 @@
 		2C0BF91E1A2D85E1002B3F65 /* UILabel+padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+padding.h"; sourceTree = "<group>"; };
 		2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+padding.m"; sourceTree = "<group>"; };
 		2C707D551A39097700D655A6 /* FinalOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOrderVC.h; sourceTree = "<group>"; };
-		2C707D561A39097700D655A6 /* FinalOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalOrderVC.m; sourceTree = "<group>"; };
+		2C707D561A39097700D655A6 /* FinalOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FinalOrderVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C707D5A1A39105600D655A6 /* eat-oclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eat-oclock.png"; sourceTree = "<group>"; };
 		2CBA5D071A34CC5D00392957 /* cheese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cheese.png; sourceTree = "<group>"; };
 		2CBA5D091A34E06600392957 /* peppers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peppers.png; sourceTree = "<group>"; };
