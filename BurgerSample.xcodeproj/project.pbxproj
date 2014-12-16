@@ -15,7 +15,7 @@
 		2C43E7CD1A40F10A000638A4 /* UIButton+CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C43E7CC1A40F10A000638A4 /* UIButton+CustomButton.m */; };
 		2C707D571A39097700D655A6 /* FinalOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C707D561A39097700D655A6 /* FinalOrderVC.m */; };
 		2C707D5B1A39105600D655A6 /* eat-oclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C707D5A1A39105600D655A6 /* eat-oclock.png */; };
-		2CBA5D081A34CC5D00392957 /* cheese.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA5D071A34CC5D00392957 /* cheese.png */; };
+		2CB6EA661A40FDCF00F109BA /* cheese.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6EA651A40FDCF00F109BA /* cheese.png */; };
 		2CBA5D151A34E06600392957 /* peppers.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA5D091A34E06600392957 /* peppers.png */; };
 		2CBA5D161A34E06600392957 /* pineapple.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA5D0A1A34E06600392957 /* pineapple.png */; };
 		2CBA5D171A34E06600392957 /* canadianBacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA5D0B1A34E06600392957 /* canadianBacon.png */; };
@@ -80,7 +80,7 @@
 		2C707D551A39097700D655A6 /* FinalOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOrderVC.h; sourceTree = "<group>"; };
 		2C707D561A39097700D655A6 /* FinalOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FinalOrderVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C707D5A1A39105600D655A6 /* eat-oclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eat-oclock.png"; sourceTree = "<group>"; };
-		2CBA5D071A34CC5D00392957 /* cheese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cheese.png; sourceTree = "<group>"; };
+		2CB6EA651A40FDCF00F109BA /* cheese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cheese.png; sourceTree = "<group>"; };
 		2CBA5D091A34E06600392957 /* peppers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peppers.png; sourceTree = "<group>"; };
 		2CBA5D0A1A34E06600392957 /* pineapple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pineapple.png; sourceTree = "<group>"; };
 		2CBA5D0B1A34E06600392957 /* canadianBacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canadianBacon.png; sourceTree = "<group>"; };
@@ -158,6 +158,7 @@
 		2C0BF91A1A2D8288002B3F65 /* OTHER */ = {
 			isa = PBXGroup;
 			children = (
+				2CB6EA651A40FDCF00F109BA /* cheese.png */,
 				2C707D5A1A39105600D655A6 /* eat-oclock.png */,
 				2CBA5D251A34ECAE00392957 /* drinks.png */,
 				2CBA5D261A34ECAE00392957 /* nuggets.png */,
@@ -167,7 +168,6 @@
 				2CBA5D221A34E25400392957 /* relish.png */,
 				2CDCA0771A32474C00F8106C /* tomato.png */,
 				2CDCA0761A32474C00F8106C /* lettuce.png */,
-				2CBA5D071A34CC5D00392957 /* cheese.png */,
 				2CBA5D101A34E06600392957 /* onion.png */,
 				2CDCA0741A32474C00F8106C /* pickles.png */,
 				2CBA5D131A34E06600392957 /* ketchup.png */,
@@ -390,6 +390,7 @@
 				2CBA5D181A34E06600392957 /* sausage.png in Resources */,
 				2C005D731A24649000B0C343 /* burger.png in Resources */,
 				2CBA5D2A1A34ECAE00392957 /* nuggets.png in Resources */,
+				2CB6EA661A40FDCF00F109BA /* cheese.png in Resources */,
 				2CBA5D1E1A34E06600392957 /* salsa.png in Resources */,
 				2CBA5D161A34E06600392957 /* pineapple.png in Resources */,
 				2CBA5D1A1A34E06600392957 /* garlic.png in Resources */,
@@ -401,7 +402,6 @@
 				2CDCA06E1A2E2DFE00F8106C /* checkedBox.png in Resources */,
 				2CDCA07A1A32474C00F8106C /* pickles.png in Resources */,
 				2CBA5D151A34E06600392957 /* peppers.png in Resources */,
-				2CBA5D081A34CC5D00392957 /* cheese.png in Resources */,
 				2CBA5D1F1A34E06600392957 /* ketchup.png in Resources */,
 				2CBA5D1C1A34E06600392957 /* onion.png in Resources */,
 				2CBA5D241A34E25400392957 /* relish.png in Resources */,
