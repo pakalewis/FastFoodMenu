@@ -8,6 +8,7 @@
 
 #import "MenuVC.h"
 #import "MenuCell.h"
+#import "UIButton+CustomButton.h"
 
 @interface MenuVC ()
 
@@ -115,25 +116,11 @@ typedef enum {
 
 -(void) setupButtons {
 //    self.menuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.menuButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.menuButton.backgroundColor = [UIColor clearColor];
-    [self.menuButton setTitle:@"MENU" forState:UIControlStateNormal];
-    [self.menuButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [self.menuButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.menuButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.menuButton.layer setBorderWidth:4];
-    self.menuButton.layer.cornerRadius = 15;
+    [self.menuButton setUpButtonWithTitle:@"MENU"];
     [self.menuButton addTarget:self action:@selector(didPressMenuButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: self.menuButton];
     
-    self.placeOrderButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.placeOrderButton.backgroundColor = [UIColor clearColor];
-    [self.placeOrderButton setTitle:@"PLACE ORDER" forState:UIControlStateNormal];
-    [self.placeOrderButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [self.placeOrderButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.placeOrderButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.placeOrderButton.layer setBorderWidth:4];
-    self.placeOrderButton.layer.cornerRadius = 15;
+    [self.placeOrderButton setUpButtonWithTitle:@"PLACE ORDER"];
     [self.placeOrderButton addTarget:self action:@selector(didPressPlaceOrderButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: self.placeOrderButton];
     

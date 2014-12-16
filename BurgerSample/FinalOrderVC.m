@@ -11,6 +11,7 @@
 #import "DrawHotDog.h"
 #import "DrawTaco.h"
 #import "DrawPizza.h"
+#import "UIButton+CustomButton.h"
 
 @interface FinalOrderVC ()
 
@@ -58,14 +59,7 @@
     
     // Make meal labels
     self.mealLabel1 = [[[UIButton alloc] init] autorelease];
-    self.mealLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mealLabel1.backgroundColor = [UIColor clearColor];
-    [self.mealLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [self.mealLabel1 setTitle:@"MEAL" forState:UIControlStateNormal];
-    [self.mealLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.mealLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.mealLabel1.layer setBorderWidth:2];
-    self.mealLabel1.layer.cornerRadius = 15;
+    [self.mealLabel1 setUpButtonWithTitle:@"MEAL"];
     [self.mealLabel1 addTarget:self action:@selector(didPressMealLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mealLabel1];
     
@@ -92,14 +86,7 @@
     
     // Make toppings label
     self.toppingsLabel1 = [[[UIButton alloc] init] autorelease];
-    self.toppingsLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.toppingsLabel1.backgroundColor = [UIColor clearColor];
-    [self.toppingsLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [self.toppingsLabel1 setTitle:@"TOPPINGS" forState:UIControlStateNormal];
-    [self.toppingsLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.toppingsLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.toppingsLabel1.layer setBorderWidth:2];
-    self.toppingsLabel1.layer.cornerRadius = 15;
+    [self.toppingsLabel1 setUpButtonWithTitle:@"TOPPINGS"];
     [self.toppingsLabel1 addTarget:self action:@selector(didPressToppingsLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toppingsLabel1];
 
@@ -118,14 +105,7 @@
     
     // Make sides labels
     self.sidesLabel1 = [[[UIButton alloc] init] autorelease];
-    self.sidesLabel1.translatesAutoresizingMaskIntoConstraints = NO;
-    self.sidesLabel1.backgroundColor = [UIColor clearColor];
-    [self.sidesLabel1.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [self.sidesLabel1 setTitle:@"SIDES" forState:UIControlStateNormal];
-    [self.sidesLabel1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.sidesLabel1.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [self.sidesLabel1.layer setBorderWidth:2];
-    self.sidesLabel1.layer.cornerRadius = 15;
+    [self.sidesLabel1 setUpButtonWithTitle:@"SIDES"];
     [self.sidesLabel1 addTarget:self action:@selector(didPressSidesLabel:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.sidesLabel1];
 

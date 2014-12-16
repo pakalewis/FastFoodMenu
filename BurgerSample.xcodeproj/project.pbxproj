@@ -12,6 +12,7 @@
 		2C005D751A246B8200B0C343 /* sides.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C005D741A246B8200B0C343 /* sides.png */; };
 		2C005D771A246CDC00B0C343 /* toppings.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C005D761A246CDC00B0C343 /* toppings.png */; };
 		2C0BF9201A2D85E1002B3F65 /* UILabel+padding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */; };
+		2C43E7CD1A40F10A000638A4 /* UIButton+CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C43E7CC1A40F10A000638A4 /* UIButton+CustomButton.m */; };
 		2C707D571A39097700D655A6 /* FinalOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C707D561A39097700D655A6 /* FinalOrderVC.m */; };
 		2C707D5B1A39105600D655A6 /* eat-oclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C707D5A1A39105600D655A6 /* eat-oclock.png */; };
 		2CBA5D081A34CC5D00392957 /* cheese.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA5D071A34CC5D00392957 /* cheese.png */; };
@@ -74,6 +75,8 @@
 		2C005D761A246CDC00B0C343 /* toppings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toppings.png; sourceTree = "<group>"; };
 		2C0BF91E1A2D85E1002B3F65 /* UILabel+padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+padding.h"; sourceTree = "<group>"; };
 		2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+padding.m"; sourceTree = "<group>"; };
+		2C43E7CB1A40F10A000638A4 /* UIButton+CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CustomButton.h"; sourceTree = "<group>"; };
+		2C43E7CC1A40F10A000638A4 /* UIButton+CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CustomButton.m"; sourceTree = "<group>"; };
 		2C707D551A39097700D655A6 /* FinalOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOrderVC.h; sourceTree = "<group>"; };
 		2C707D561A39097700D655A6 /* FinalOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FinalOrderVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C707D5A1A39105600D655A6 /* eat-oclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eat-oclock.png"; sourceTree = "<group>"; };
@@ -180,8 +183,6 @@
 				2CDCA0701A32383300F8106C /* milkshake.png */,
 				2CDCA06C1A2E2DFE00F8106C /* checkedBox.png */,
 				2CDCA06D1A2E2DFE00F8106C /* uncheckedBox.png */,
-				2C0BF91E1A2D85E1002B3F65 /* UILabel+padding.h */,
-				2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */,
 			);
 			name = OTHER;
 			sourceTree = "<group>";
@@ -274,6 +275,10 @@
 				2CC790581A3BEC77004D108A /* DrawPizza.m */,
 				2CC7905A1A3BEC7E004D108A /* DrawTaco.h */,
 				2CC7905B1A3BEC7E004D108A /* DrawTaco.m */,
+				2C0BF91E1A2D85E1002B3F65 /* UILabel+padding.h */,
+				2C0BF91F1A2D85E1002B3F65 /* UILabel+padding.m */,
+				2C43E7CB1A40F10A000638A4 /* UIButton+CustomButton.h */,
+				2C43E7CC1A40F10A000638A4 /* UIButton+CustomButton.m */,
 			);
 			name = VIEW;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				2CC790561A3BDF33004D108A /* DrawHotDog.m in Sources */,
 				2CD3165C1A23D3280066AA67 /* ToppingsVC.m in Sources */,
 				2CD316371A23CFBA0066AA67 /* BurgerSample.xcdatamodeld in Sources */,
+				2C43E7CD1A40F10A000638A4 /* UIButton+CustomButton.m in Sources */,
 				2C707D571A39097700D655A6 /* FinalOrderVC.m in Sources */,
 				2CD3165F1A23D3610066AA67 /* SidesVC.m in Sources */,
 			);
